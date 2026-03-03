@@ -22,6 +22,10 @@ Route::get('/ai-generator', function () {
     return Inertia::render('AiGenerator');
 })->middleware('auth')->name('ai.generator');
 
+Route::post('/ai-generator', function (\Illuminate\Http\Request $request) {
+    return response()->json($request->all());
+})->middleware('auth')->name('ai.generator.store');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
