@@ -11,7 +11,7 @@ class GenerateContentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class GenerateContentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'topic'    => ['required', 'string', 'max:200'],
+            'draft'    => ['nullable', 'string', 'max:5000'],
+            'tone'     => ['required', 'in:professionale,amichevole,ironico'],
+            'language' => ['required', 'in:it,en'],
+            'length'   => ['required', 'in:breve,medio,lungo'],
+            'target'   => ['nullable', 'string', 'max:120'],
         ];
     }
 }
