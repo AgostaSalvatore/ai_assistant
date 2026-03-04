@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\GenerateContentRequest;
 
 class AiGeneratorController extends Controller
 {
-    //
+    public function store(GenerateContentRequest $request)
+    {
+        return response()->json($request->validated());
+    }
 }
