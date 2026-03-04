@@ -8,6 +8,13 @@ class AiGeneratorController extends Controller
 {
     public function store(GenerateContentRequest $request)
     {
-        return response()->json($request->validated());
+        $data = $request->validated();
+
+        return response()->json([
+            'input'         => $data,
+            'blog_article'  => "Articolo (mock) su: {$data['topic']} - tono {$data['tone']} - lingua {$data['language']} - lunghezza {$data['length']}",
+            'linkedin_post' => "Post LinkedIn (mock) su: {$data['topic']}",
+            'hashtags'      => ['#laravel', '#react', '#ai'],
+        ]);
     }
 }
