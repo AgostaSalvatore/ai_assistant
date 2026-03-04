@@ -6,20 +6,19 @@ export default function AiGenerator() {
     const [tone, setTone] = useState('professionale')
     const [language, setLanguage] = useState('it')
     const [length, setLength] = useState('breve')
+    const [loading, setLoading] = useState(false);
 
     const submit = async () => {
-        try {
-            const res = await axios.post('/ai-generator', {
-                topic,
-                tone,
-                language,
-                length,
-            });
+        if (loading) return;
+        setLoading(true);
 
+        try {
+            const res = await axios.post('/ai-generator', { topic, tone, language, length });
             alert(JSON.stringify(res.data, null, 2));
         } catch (err) {
-            console.log(err.response?.data);
             alert(JSON.stringify(err.response?.data, null, 2));
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -50,7 +49,9 @@ export default function AiGenerator() {
                 <option value="lungo">Lungo</option>
             </select>
 
-            <button onClick={submit}>Genera</button>
+            <button onClick={submit} disabled={loading}>
+                {loading ? 'Genero...' : 'Genera'}
+            </button>
         </div>
     );
 }
